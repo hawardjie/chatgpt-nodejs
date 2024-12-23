@@ -1,0 +1,15 @@
+{
+  "name": "chatgpt-nodejs",
+  "author": "Haward Jie",
+  "license": "MIT",
+  "description": "ChatGPT application integrated with OpenAI",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.17.1",
+    "openai": "^4.77.0",
+    "redis": "^3.0.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
