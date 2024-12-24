@@ -10,8 +10,9 @@
         padding: 20px;
       }
       #response {
+        width: 100%;
         margin-top: 20px;
-        padding: 20px;
+        padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #f9f9f9;
@@ -35,7 +36,43 @@
     </style>
   </head>
   <body>
-    <h1>Postsea</h1>
+    <h1>Postsea Chat</h1>
     <textarea id="query" placeholder="Enter your query here..."></textarea>
+    <button onclick="sendPrompt()">Send</button>
+    <div id="response"></div>
+
+    <script>
+      async function sendPrompt() {
+        const query = document.getElementById('query').value;
+        const responseElement = document.getElementById('response');
+        responseElement.innerHTML = 'Loading...';
+
+        try {
+          const response = await fetch('/api/query', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query }),
+          });
+
+          const data = await response.json();
+          responseElement.innerHTML = data.response;
+        } catch (error) {
+          console.error(error);
+          responseElement.innerHTML = 'An error occurred. Please try again.';
+        }
+        const response = await fetch('/api/query', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query }),
+        });
+
+        const data = await response.json();
+        responseElement.innerHTML = data.response;
+      }
+    </script>
   </body>
 </html>
