@@ -1,8 +1,26 @@
-version: '3'
+version: '3.8'
 services:
   redis-server:
     image: 'redis'
-  node-app:
-    build: .
+  backend:
+    build: ./server
     ports:
-      - '8080:3000'
+      - '3001:3001'
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    command: npm run dev
+
+  frontend:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+      - redis-server
+    command: npm start
