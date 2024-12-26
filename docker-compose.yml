@@ -2,6 +2,7 @@ version: '3.8'
 services:
   redis-server:
     image: 'redis'
+
   backend:
     build: ./server
     ports:
@@ -11,6 +12,8 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+    depends_on:
+      - redis-server
     command: npm run dev
 
   frontend:
@@ -22,5 +25,4 @@ services:
       - /app/node_modules
     depends_on:
       - backend
-      - redis-server
     command: npm start
