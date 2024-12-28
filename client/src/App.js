@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './css/App.css';
 
 function App() {
   const [input, setInput] = useState('');
@@ -26,32 +27,27 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className='container'>
       <h1>Postsea Chat</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder='Type your message...'
-          style={{ width: '300px', marginRight: '10px' }}
-        />
-        <button type='submit' disabled={loading}>
-          {loading ? 'Sending...' : 'Send'}
-        </button>
-        <p>Number of visits is = {pageCounter}</p>
-      </form>
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder='Enter your query here...'
+        className='query'
+      />
+      <button
+        type='button'
+        onClick={handleSubmit}
+        disabled={loading}
+        className='button'
+      >
+        {loading ? 'Sending...' : 'Send'}
+      </button>
+
       {response && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Response:</h3>
+        <div className='response'>
+          <h3>Response #{pageCounter}</h3>
           <p>{response}</p>
-          <p>Number of visits is = {pageCounter}</p>
-        </div>
-      )}
-      {pageCounter && (
-        <div style={{ marginTop: '20px' }}>
-          <h4>Page Counter:</h4>
-          <p>{pageCounter}</p>
         </div>
       )}
     </div>
